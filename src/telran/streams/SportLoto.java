@@ -7,7 +7,7 @@ public class SportLoto {
 		
 		try {
 			int[] intArgs = getThreeIntegersFromArgs( args );
-			LotoModel lotoModel = LotoModel.getInstance( intArgs[0], intArgs[1], intArgs[2] );
+			LotoModel lotoModel = LotoModel.newInstance( intArgs[0], intArgs[1], intArgs[2] );
 			int[] seeds = lotoModel.getSeeds();
 			printResult(seeds);
 		} catch (LotoModelException e) {

@@ -13,7 +13,7 @@ class LotoModel {
 		this.numberOfSeeds = numberOfSeeds;
 	}
 
-	public static LotoModel getInstance( int from, int to, int numberOfSeeds ) throws LotoModelException {
+	public static LotoModel newInstance( int from, int to, int numberOfSeeds ) throws LotoModelException {
 		if ( !(to > from) )
 			throw new LotoModelException( "to", to, "Should be greater then argument <from>.");
 		if ( !( numberOfSeeds <= Math.abs(to - from) && numberOfSeeds > 0 ) )
