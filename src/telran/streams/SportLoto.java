@@ -27,6 +27,7 @@ public class SportLoto {
 			if ( i < seeds.length - 1  ) 
 				System.out.print( ", " );
 		}
+		System.out.println();
 		
 	}
 
