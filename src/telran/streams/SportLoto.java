@@ -32,7 +32,7 @@ public class SportLoto {
 
 	private static int[] getThreeIntegersFromArgs(String[] args) throws Exception {
 		if ( args.length < 3 )
-			throw new Exception( String.format("Given only %d command line arguments, should be 3.", args.length ));
+			throw new Exception( String.format("Given only %d command line arguments, should be 3.\n", args.length ));
 		int[] result = new int[ 3 ];
 		for ( int i = 0; i < 3; i++ ) {
 			try {
