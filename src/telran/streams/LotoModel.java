@@ -16,7 +16,7 @@ class LotoModel {
 	public static LotoModel getInstance( int from, int to, int numberOfSeeds ) throws LotoModelException {
 		if ( !(to > from) )
 			throw new LotoModelException( "to", to, "Should be greater then argument <from>.");
-		if ( !( numberOfSeeds <= Math.abs(to) - Math.abs(from) && numberOfSeeds > 0 ) )
+		if ( !( numberOfSeeds <= Math.abs(to - from) && numberOfSeeds > 0 ) )
 			throw new LotoModelException( "numberOfSeeds", numberOfSeeds, 
 					String.format("For a given range [%d, %d] should be between 1 and %d.", from, to, to - from ) );
 		return new LotoModel( from, to, numberOfSeeds );
