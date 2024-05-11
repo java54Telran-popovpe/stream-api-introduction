@@ -8,6 +8,8 @@ import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
+import telran.streams.MinMaxAvg;
+
 class StreamsIntroductionTest {
 
 	@Test
@@ -56,7 +58,8 @@ class StreamsIntroductionTest {
 	@Test
 	void displayShuffleTest() {
 		int[] arr = { -10, 45, 32, 48, 100, 32 }; 
-		displayShuffle( arr ); 
+		for ( int i = 0; i < arr.length; i++ )
+			displayShuffle( arr ); 
 		arr = new int[]{ 23 };
 		displayShuffle( arr ); 
 		arr = new int[]{ };
@@ -64,4 +67,13 @@ class StreamsIntroductionTest {
 	}
 	
 	
+	@Test
+	void minMaxAvgTest() {
+		int[] ar = {12, -45, 56, 78, 67, 32, 0, -4 , -87};
+		Arrays.sort(ar);
+		MinMaxAvg result = getMinMaxAvg(ar);
+		assertEquals(ar[0], result.min());
+		assertEquals(ar[ar.length - 1], result.max());
+		assertEquals( Arrays.stream(ar).sum() / (double) ar.length, result.avg());
+	}
 }

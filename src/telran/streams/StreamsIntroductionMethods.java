@@ -1,12 +1,16 @@
 package telran.streams;
 
+
 import java.util.Arrays;
+import java.util.IntSummaryStatistics;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+
 public class StreamsIntroductionMethods {
+	
 	static public int sumIf( int ar[] , Predicate<Integer> predicate) {
 		return Arrays.stream(ar).filter( n-> predicate.test(n)).sum();
 	}
@@ -40,4 +44,13 @@ public class StreamsIntroductionMethods {
 				System.out.println();
 			}
 	}
+	
+	
+	
+	static public MinMaxAvg getMinMaxAvg( int[] ar ) {
+		IntSummaryStatistics stats = Arrays.stream(ar).summaryStatistics(); 
+		return new MinMaxAvg(stats.getMin(), stats.getMax(), stats.getAverage());
+	}
+	
+	
 }
