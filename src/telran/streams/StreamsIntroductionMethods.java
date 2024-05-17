@@ -45,8 +45,6 @@ public class StreamsIntroductionMethods {
 			}
 	}
 	
-	
-	
 	static public MinMaxAvg getMinMaxAvg( int[] ar ) {
 		IntSummaryStatistics stats = Arrays.stream(ar).summaryStatistics(); 
 		return new MinMaxAvg(stats.getMin(), stats.getMax(), stats.getAverage());

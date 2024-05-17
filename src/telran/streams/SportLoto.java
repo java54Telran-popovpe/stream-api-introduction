@@ -1,5 +1,7 @@
 package telran.streams;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class SportLoto {
 
@@ -8,7 +10,7 @@ public class SportLoto {
 		try {
 			int[] intArgs = getThreeIntegersFromArgs( args );
 			LotoModel lotoModel = LotoModel.newInstance( intArgs[0], intArgs[1], intArgs[2] );
-			int[] seeds = lotoModel.getSeeds();
+			int[] seeds = lotoModel.getSeedsWithoutStreams();
 			printResult(seeds);
 		} catch (LotoModelException e) {
 			System.out.printf( "LotoModel object creation error:\n " + e.getMessage() );
@@ -22,11 +24,7 @@ public class SportLoto {
 
 	private static void printResult(int[] seeds) {
 		System.out.println( "The results are:" );
-		for ( int i = 0; i < seeds.length; i++ ) {
-			System.out.print( seeds[ i ]);
-			if ( i < seeds.length - 1  ) 
-				System.out.print( ", " );
-		}
+		System.out.print(Arrays.stream(seeds).mapToObj( Integer::toString ).collect(Collectors.joining(", ")));
 		System.out.println();
 		
 	}

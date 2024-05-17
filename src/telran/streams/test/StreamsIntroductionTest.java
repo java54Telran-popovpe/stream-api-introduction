@@ -67,6 +67,8 @@ class StreamsIntroductionTest {
 	}
 	
 	
+	
+	
 	@Test
 	void minMaxAvgTest() {
 		int[] ar = {12, -45, 56, 78, 67, 32, 0, -4 , -87};
@@ -75,5 +77,14 @@ class StreamsIntroductionTest {
 		assertEquals(ar[0], result.min());
 		assertEquals(ar[ar.length - 1], result.max());
 		assertEquals( Arrays.stream(ar).sum() / (double) ar.length, result.avg());
+		
+		ar = new int[0];
+		result = getMinMaxAvg(ar);
+		assertEquals(Integer.MAX_VALUE, result.min());
+		assertEquals(Integer.MIN_VALUE, result.max());
+		assertEquals( 0, result.avg());
+		
+		
+		
 	}
 }

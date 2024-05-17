@@ -1,5 +1,6 @@
 package telran.streams;
 
+import java.util.Arrays;
 import java.util.Random;
 
 class LotoModel {
@@ -24,5 +25,28 @@ class LotoModel {
 	
 	public int[] getSeeds() {
 		return new Random().ints(from, to + 1).distinct().limit(numberOfSeeds).toArray();
+	}
+	
+
+	
+	public int[] getSeedsWithoutStreams() {
+		int[] result = {};
+		int rangeLength = to - from + 1;
+		int[] gotUniqueIntFromRange = {};
+		while ( gotUniqueIntFromRange.length < numberOfSeeds ) {
+			int randomIntegerFromRange = (int)Math.round( Math.random() * rangeLength ) + from;
+			int i = Arrays.binarySearch(gotUniqueIntFromRange,randomIntegerFromRange);
+			if ( i < 0 ) {
+				int indexForAdding = Math.abs( i + 1 );
+				int[] updatedArray = new int[ gotUniqueIntFromRange.length + 1];
+				System.arraycopy(gotUniqueIntFromRange, 0, updatedArray, 0, indexForAdding );
+				updatedArray[ indexForAdding ] = randomIntegerFromRange;
+				System.arraycopy(gotUniqueIntFromRange, indexForAdding, updatedArray, indexForAdding + 1, gotUniqueIntFromRange.length - indexForAdding);
+				gotUniqueIntFromRange = updatedArray;
+				result = Arrays.copyOf(result, result.length + 1);
+				result[ result.length - 1 ] = randomIntegerFromRange;
+			}
+		}
+		return result;
 	}
 }
