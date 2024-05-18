@@ -3,8 +3,6 @@ package telran.streams.students;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class Colledge implements Iterable<Student> {
 	Student[] students;
@@ -31,10 +29,6 @@ public class Colledge implements Iterable<Student> {
 	@Override
 	public Iterator<Student> iterator() {
 		return new ColledgeIterator();
-	}
-	
-	public Stream<Student> getStreamOfStudents() {
-		return StreamSupport.stream(this.spliterator(), false);
 	}
 
 }

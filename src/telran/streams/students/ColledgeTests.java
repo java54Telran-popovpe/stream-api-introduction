@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Comparator;
+
+import static java.util.Comparator.*;
 import java.util.IntSummaryStatistics;
-import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,23 +51,20 @@ class ColledgeTests {
 	}
 
 	private IntSummaryStatistics getMarksStatistics(Colledge colledge) {
-		return colledge.getStreamOfStudents().map(Student::marks).flatMapToInt( m -> Arrays.stream(m)).summaryStatistics();
+		return getStudent(colledge).map(Student::marks).flatMapToInt( m -> Arrays.stream(m)).summaryStatistics();
 	}
 
 	private static IntSummaryStatistics getHoursStatistics(Colledge colledge) {
-		return colledge.getStreamOfStudents().collect(Collectors.summarizingInt(Student::hours));
+		return getStudent(colledge).collect(Collectors.summarizingInt(Student::hours));
 	}
 
 	private static Student[] sortStudent(Colledge col) {
-		Comparator<Student> cmp = ( a, b ) -> {
-			int resultOfMarksComparing =  Double.compare(
-					Arrays.stream(b.marks()).average().orElse(0),
-					Arrays.stream(a.marks()).average().orElse(0));
-			return resultOfMarksComparing != 0 ? resultOfMarksComparing : Integer.compare(b.hours(), a.hours());
-		};
-		return col.getStreamOfStudents().sorted(cmp).toArray(Student[]::new);
+		Comparator<Student> cmp = comparing((Student s) -> Arrays.stream(s.marks()).average().orElse(0.0), reverseOrder())
+												.thenComparing(Student::hours, reverseOrder());
+		return getStudent(col).sorted(cmp).toArray(Student[]::new);
 	}
 	
-	
-
+	private static Stream<Student> getStudent(Colledge col) {
+		return StreamSupport.stream(col.spliterator(), false);
+	}
 }
