@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.IntSummaryStatistics;
+import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -56,10 +57,14 @@ class ColledgeTests {
 
 	private static Student[] sortStudent(Colledge col) {
 		Comparator<Student> cmp = ( a, b ) -> {
-			int resultOfMarksComparing =  Integer.compare(Arrays.stream(b.marks()).sum(), Arrays.stream(a.marks()).sum());
+			int resultOfMarksComparing =  Double.compare(
+					Arrays.stream(b.marks()).average().orElse(0),
+					Arrays.stream(a.marks()).average().orElse(0));
 			return resultOfMarksComparing != 0 ? resultOfMarksComparing : Integer.compare(b.hours(), a.hours());
 		};
 		return col.getStreamOfStudents().sorted(cmp).toArray(Student[]::new);
 	}
+	
+	
 
 }

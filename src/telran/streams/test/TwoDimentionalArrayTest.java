@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,8 @@ class TwoDimentionalArrayTest {
 			{ 10, 4 }
 			
 	};
+	
+	int[][][] array2 = { array, array };
 
 	@Test
 	void sortTest() {
@@ -30,16 +33,20 @@ class TwoDimentionalArrayTest {
 		assertEquals( 95, sumArrays(array));
 		assertEquals(95, sumArrays2(array));
 		assertEquals(95, sumArrays3(array));
+		assertEquals(16l, sumArray4(array2));
 		
 	}
 	
+	private long sumArray4(int[][][] ar) {
+		return Arrays.stream(ar).flatMap( a -> Arrays.stream(a)).flatMapToInt( a -> Arrays.stream(a)).count();
+	}
 	@Test
 	void summaryStatisticsTest() {
 		IntSummaryStatistics iss = Arrays.stream(array).flatMapToInt( a -> Arrays.stream(a)).summaryStatistics();
 	}
 
 	private static int sumArrays3(int[][] ar) {
-		return Arrays.stream(ar).flatMapToInt( a -> Arrays.stream(a)).sum();
+		return Arrays.stream(ar).map( a -> Arrays.stream(a)).mapToInt( a -> a.sum()).sum();
 	}
 	private static  int sumArrays2(int[][] ar) {
 		return Arrays.stream(ar).mapToInt(a-> Arrays.stream(a).sum()).sum();
